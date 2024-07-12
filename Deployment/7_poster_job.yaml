@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: import-posts-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: import-posts
+        image: coffee2code/poster:latest
+        env:
+        - name: MONGO_URI
+          value: "mongodb://mongo:27017"
+        - name: DB_NAME
+          value: "sample_training"
+        - name: API_URL
+          value: "http://server:5050/"
+      restartPolicy: Never
+  backoffLimit: 4
